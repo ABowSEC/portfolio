@@ -1,4 +1,4 @@
-# abowsec — Andrew Bowman's portfolio
+# abowsec - Andrew Bowman's portfolio
 
 Single-page portfolio covering my projects (Ephemeris, NetSleuth and work in progress), an about section, an FAQ and contact links.
 
