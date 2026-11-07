@@ -35,6 +35,8 @@ Project `status` controls placement: `live` and `featured` get a large card with
 - **Protocol inspector**: on the CodeBreaker card, a playable game that shows every frame of the real wire protocol (4-byte big-endian length + UTF-8 JSON) as hex. The protocol logic is in `src/lib/codebreaker.ts`. Enable it on any project with `demo: "protocol-inspector"`.
 - **Trace rail**: on screens ≥1280px, a traceroute down the left edge. Each section is a hop, and each hop shows when you first reached it. Section tracking is shared with the nav via `src/lib/useSectionProgress.ts`.
 
+- **Collapsible sections**: What I do, Work, Now, About and FAQ use `src/components/CollapsibleSection.tsx`. Pass `defaultOpen` to start one open (Work does). Any `#link` into a closed section opens it first (`SectionLinks.tsx`). Closed content stays findable with Ctrl+F (`hidden="until-found"`), and everything is open without JavaScript.
+
 ## Personalization
 
 - **Greeting** (hero): the visitor's local time next to yours, a "welcome back" that remembers which project they last looked at (and whether it has new commits since), and a hello for visitors arriving from LinkedIn or GitHub. All of it is stored in the visitor's own browser (`src/lib/visit.ts`).

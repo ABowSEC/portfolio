@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import TraceRail from "@/components/TraceRail";
 import Terminal from "@/components/Terminal";
 import InlineScript from "@/components/InlineScript";
+import SectionLinks from "@/components/SectionLinks";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -72,6 +73,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <TraceRail />
         <Terminal />
+        <SectionLinks />
       </body>
     </html>
   );

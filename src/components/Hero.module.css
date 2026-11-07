@@ -1,13 +1,26 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(80px, 12vw, 140px) 0 clamp(88px, 11vw, 136px);
+  padding: clamp(64px, 9vw, 104px) 0 clamp(88px, 10vw, 128px);
 }
 
 /* The text column sits over the art; let the mouse reach the art's nodes
    everywhere except the text itself. */
 .inner { position: relative; pointer-events: none; }
 .inner > * { pointer-events: auto; max-width: min(100%, 720px); }
+
+/* Name first, then the details, then the headline */
+.name {
+  margin: 0;
+  font-family: var(--serif);
+  font-variation-settings: "SOFT" 60;
+  font-size: clamp(1.5rem, 2.6vw, 1.9rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.meta { margin: 6px 0 18px; font-size: 1rem; }
 
 .title {
   font-size: clamp(2.3rem, 5.8vw, 4rem);

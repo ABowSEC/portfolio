@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { me } from "@/data/me";
+import CollapsibleSection from "./CollapsibleSection";
 import Reveal from "./Reveal";
 import styles from "./About.module.css";
 
@@ -29,11 +30,15 @@ export default function About() {
   ].filter(Boolean);
 
   return (
-    <section id="about" className={`section ${styles.about}`}>
-      <div className={`container ${styles.grid}`}>
+    <CollapsibleSection
+      id="about"
+      eyebrow="About"
+      title="Student by day. Packet sniffer by night."
+      summary={`${me.experience[0] ? `${me.experience[0].title} at ${me.schoolShort} · ` : ""}how a cook and EMT ended up in systems integration.`}
+      className={styles.about}
+    >
+      <div className={styles.grid}>
         <Reveal>
-          <span className="eyebrow">About</span>
-          <h2 className={styles.title}>Student by day. Packet sniffer by night.</h2>
           {me.photo && (
             <Image
               src={me.photo}
@@ -136,6 +141,6 @@ export default function About() {
           </div>
         </Reveal>
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }

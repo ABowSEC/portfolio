@@ -1,5 +1,6 @@
 import { projects } from "@/data/projects";
 import { getActivitySnapshot } from "@/lib/activity-snapshot";
+import CollapsibleSection from "./CollapsibleSection";
 import ProjectCard from "./ProjectCard";
 import Reveal from "./Reveal";
 import styles from "./Work.module.css";
@@ -10,16 +11,13 @@ export default async function Work() {
   const inProgress = projects.filter((p) => p.status === "wip");
 
   return (
-    <section id="work" className="section">
-      <div className="container">
-        <Reveal>
-          <div className="section-head">
-            <span className="eyebrow">Selected work</span>
-            <h2>Built, shipped, still running.</h2>
-            <p>One live site, one open-source tool, and a couple more on the way.</p>
-          </div>
-        </Reveal>
-
+    <CollapsibleSection
+      id="work"
+      eyebrow="Selected work"
+      title="Built, shipped, still running."
+      summary="One live site, one open-source tool, and a couple more on the way."
+      defaultOpen
+    >
         <div className={styles.featured}>
           {featured.map((p) => (
             <Reveal key={p.slug}>
@@ -40,7 +38,6 @@ export default async function Work() {
             </Reveal>
           ))}
         </div>
-      </div>
-    </section>
+    </CollapsibleSection>
   );
 }

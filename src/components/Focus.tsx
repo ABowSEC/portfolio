@@ -1,3 +1,4 @@
+import CollapsibleSection from "./CollapsibleSection";
 import Reveal from "./Reveal";
 import styles from "./Focus.module.css";
 
@@ -34,21 +35,16 @@ const areas = [
 
 export default function Focus() {
   return (
-    <section id="focus" className="section">
-      <div className="container">
-        <Reveal>
-          <div className="section-head">
-            <span className="eyebrow">What I do</span>
-            <h2>
-              Your integrations, <em className={styles.accent}>simplified.</em>
-            </h2>
-            <p>
-              Campus systems, a home network or a dozen launch APIs: the job is the same. Get data
-              moving cleanly between things, then make it easy to see.
-            </p>
-          </div>
-        </Reveal>
-
+    <CollapsibleSection
+      id="focus"
+      eyebrow="What I do"
+      title={
+        <>
+          Your integrations, <em className={styles.accent}>simplified.</em>
+        </>
+      }
+      summary="Campus systems, a home network or a dozen launch APIs: the job is the same. Get data moving cleanly between things, then make it easy to see."
+    >
         <div className={styles.grid}>
           {areas.map((a, i) => (
             <Reveal key={a.title} delay={i * 80}>
@@ -61,7 +57,6 @@ export default function Focus() {
             </Reveal>
           ))}
         </div>
-      </div>
-    </section>
+    </CollapsibleSection>
   );
 }
