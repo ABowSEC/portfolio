@@ -13,8 +13,9 @@ export default async function Hero() {
       <HeroArt />
 
       <div className={`container ${styles.inner}`}>
-        <span className="eyebrow">
-          Andrew Bowman · CS student{me.schoolShort ? ` at ${me.schoolShort}` : ""}
+        <p className={styles.name}>{site.name}</p>
+        <span className={`eyebrow ${styles.meta}`}>
+          CS student{me.schoolShort ? ` at ${me.schoolShort}` : ""}
           {me.gradYear ? ` · Class of ${me.gradYear}` : ""}
         </span>
         <h1 className={styles.title}>
