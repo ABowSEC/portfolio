@@ -11,9 +11,6 @@
 
 /* Name first, then the details, then the headline */
 .name {
-  display: flex;
-  align-items: center;
-  gap: 14px;
   margin: 0;
   font-family: var(--serif);
   font-variation-settings: "SOFT" 60;
@@ -23,14 +20,6 @@
   line-height: 1.2;
   color: var(--ink);
 }
-.name::after {
-  content: "";
-  width: 40px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--accent);
-}
-
 .meta { margin: 6px 0 18px; font-size: 1rem; }
 
 .title {
