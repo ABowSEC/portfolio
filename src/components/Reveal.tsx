@@ -7,6 +7,8 @@ export default function Reveal({ children, delay = 0 }: { children: ReactNode; d
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Tells the fallback in layout.tsx that React is running.
+    document.documentElement.setAttribute("data-hydrated", "");
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(

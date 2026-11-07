@@ -4,14 +4,13 @@
 }
 
 .subhead {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 600;
-  margin: 80px 0 24px;
+  font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+  font-weight: 500;
+  margin: 64px 0 20px;
   scroll-margin-top: 80px;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  gap: 28px;
 }

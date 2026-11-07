@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  height: 58px;
 }
 
 .brand {
@@ -48,6 +48,7 @@
 }
 
 .links a:not(:global(.btn)):hover { color: var(--ink); }
+.links a.active { color: var(--accent); }
 
 .links :global(.btn) { padding: 8px 16px; }
 
@@ -58,19 +59,43 @@
   font-size: 0.85rem;
   background: none;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 6px 12px;
+  border-radius: 999px;
+  padding: 6px 14px;
   color: var(--ink);
   cursor: pointer;
 }
 
+.termBtn {
+  font: inherit;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.termBtn:hover { color: var(--ink); border-color: var(--ink); }
+.termLabel { display: none; }
+
 @media (max-width: 720px) {
   .toggle { display: block; }
+
+  .termBtn {
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    padding: 12px 0;
+    font-size: 1.05rem;
+  }
+  .termLabel { display: inline; margin-left: 10px; font-family: var(--sans); }
 
   .links {
     display: none;
     position: absolute;
-    top: 64px;
+    top: 58px;
     left: 0;
     right: 0;
     flex-direction: column;

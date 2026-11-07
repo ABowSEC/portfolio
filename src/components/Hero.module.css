@@ -1,54 +1,52 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(96px, 16vw, 180px) 0 clamp(80px, 12vw, 140px);
-  border-bottom: 1px solid var(--line);
+  padding: clamp(80px, 12vw, 140px) 0 clamp(88px, 11vw, 136px);
 }
 
-.inner { position: relative; }
+/* The text column sits over the art; let the mouse reach the art's nodes
+   everywhere except the text itself. */
+.inner { position: relative; pointer-events: none; }
+.inner > * { pointer-events: auto; max-width: min(100%, 720px); }
 
 .title {
-  font-size: clamp(2.6rem, 7.5vw, 5rem);
-  font-weight: 600;
-  max-width: 14ch;
+  font-size: clamp(2.3rem, 5.8vw, 4rem);
+  letter-spacing: -0.025em;
+  font-weight: 500;
+  max-width: 17ch;
+}
+
+.title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
 }
 
 .lede {
-  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-size: clamp(1.05rem, 1.6vw, 1.15rem);
   color: var(--muted);
   max-width: 520px;
-  margin: 24px 0 36px;
+  margin: 20px 0 30px;
 }
 
-.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; width: fit-content; }
 
-/* Orbit lines behind the hero, a nod to Ephemeris */
-.orbits {
-  position: absolute;
-  width: min(760px, 120vw);
-  right: -180px;
-  top: 50%;
-  transform: translateY(-50%);
-  fill: none;
-  stroke: var(--line);
-  stroke-width: 1;
-  pointer-events: none;
+.hint {
+  display: none;
+  margin: 8px 0 0;
+  padding-left: 17px;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
-
-.body { fill: var(--accent); stroke: none; }
-
-.spin, .spinSlow { transform-origin: 300px 300px; }
-.spin { animation: orbit 40s linear infinite; }
-.spinSlow { animation: orbit 90s linear infinite reverse; }
-
-@keyframes orbit {
-  to { transform: rotate(360deg); }
+.hint kbd {
+  font-family: inherit;
+  padding: 1px 6px;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink);
 }
-
-@media (max-width: 720px) {
-  .orbits { right: -320px; opacity: 0.6; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .spin, .spinSlow { animation: none; }
+@media (hover: hover) and (pointer: fine) {
+  .hint { display: block; }
 }

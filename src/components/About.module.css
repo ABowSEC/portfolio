@@ -12,23 +12,24 @@
 }
 
 .title {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 600;
+  font-size: clamp(1.9rem, 4.2vw, 2.7rem);
+  font-weight: 500;
 }
 
 .copy p {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: var(--muted);
   margin: 0 0 20px;
 }
 
 .toolsHead {
-  font-family: var(--mono);
-  font-size: 0.8rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.1rem;
   font-weight: 400;
   letter-spacing: 0;
   color: var(--ink);
-  margin: 36px 0 12px;
+  margin: 30px 0 10px;
 }
 
 .tools {
@@ -39,6 +40,73 @@
   flex-wrap: wrap;
   gap: 8px;
 }
+
+.photo {
+  display: block;
+  width: min(220px, 60%);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  margin-top: 32px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+}
+
+.facts {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+  display: grid;
+  gap: 6px;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+.facts li::before { content: "·"; color: var(--accent); font-weight: 700; margin-right: 8px; }
+
+.role {
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+.roleHead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+.roleHead h4 { margin: 0; font-size: 1.25rem; }
+.roleHead h4 span { font-family: var(--sans); font-size: 1rem; }
+.roleHead h4 span { font-weight: 400; color: var(--muted); }
+.roleDates { font-size: 0.85rem; font-weight: 500; color: var(--accent); }
+.copy .roleMeta { font-size: 0.85rem; margin: 4px 0 12px; }
+.role ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 0.98rem; }
+.role li + li { margin-top: 6px; }
+
+.copy .certs { margin: 14px 0 0; font-size: 0.85rem; }
+
+.copy .story { color: var(--ink); font-size: 1.15rem; }
+
+.timeline { list-style: none; padding: 0; margin: 0; border-left: 1px solid var(--line); }
+.timeline li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 9ch 1fr;
+  gap: 12px;
+  padding: 8px 0 8px 20px;
+  color: var(--muted);
+}
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 16px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1.5px solid var(--accent);
+}
+.timeline li:not(.next):last-child::before,
+.timeline li:not(.next):has(+ .next)::before { background: var(--accent); }
+.timeline .next { opacity: 0.75; }
+.timeline .next::before { border-style: dashed; }
+.when { font-size: 0.85rem; font-weight: 600; color: var(--ink); padding-top: 2px; font-variant-numeric: tabular-nums; }
 
 @media (max-width: 860px) {
   .grid { grid-template-columns: 1fr; }

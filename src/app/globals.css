@@ -1,57 +1,115 @@
+/* Warm paper: cream, warm ink, terracotta + sage.
+   Text-sized accents are tuned to meet WCAG AA (4.5:1) on their backgrounds. */
 :root {
-  --bg: #f6f5f2;
-  --surface: #ffffff;
-  --surface-2: #eeece6;
-  --ink: #16181a;
-  --muted: #5f6368;
-  --line: #e2dfd7;
-  --accent: #127a5b;
-  --accent-soft: rgba(18, 122, 91, 0.1);
-  --on-accent: #ffffff;
-  --term-bg: #0f1412;
-  --term-ink: #cfe9dd;
+  --bg: #fbf7f0;
+  --surface: #fffdf9;
+  --surface-2: #f3ece1;
+  --ink: #2b2522;
+  --muted: #6f655e;
+  --line: #e9e0d3;
+  --accent: #b24a28; /* terracotta */
+  --accent-soft: rgba(196, 83, 47, 0.1);
+  --second: #4a7556; /* sage */
+  --second-soft: rgba(94, 140, 106, 0.14);
+  --on-accent: #fffdf9;
+  --glow: rgba(232, 131, 95, 0.16);
+  --term-bg: #221d1a;
+  --term-ink: #ede3d6;
 
-  --sans: var(--font-geist-sans), system-ui, sans-serif;
+  --serif: var(--font-serif), Georgia, "Times New Roman", serif;
+  --sans: var(--font-sans), system-ui, sans-serif;
   --mono: var(--font-mono), ui-monospace, monospace;
 
-  --radius: 8px;
+  --radius: 14px;
   --max: 1120px;
   --gutter: clamp(16px, 4vw, 32px);
+
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #121413;
-    --surface: #1a1d1c;
-    --surface-2: #222624;
-    --ink: #ecebe7;
-    --muted: #9ca19e;
-    --line: #2b302e;
-    --accent: #4fd1a0;
-    --accent-soft: rgba(79, 209, 160, 0.12);
-    --on-accent: #0b1a14;
-    --term-bg: #0b0e0d;
+    --bg: #1b1816;
+    --surface: #24201d;
+    --surface-2: #2e2824;
+    --ink: #f2eadf;
+    --muted: #b3a89c;
+    --line: #3a332d;
+    --accent: #e8835f;
+    --accent-soft: rgba(232, 131, 95, 0.14);
+    --second: #8dbf98;
+    --second-soft: rgba(141, 191, 152, 0.14);
+    --on-accent: #1b1816;
+    --glow: rgba(232, 131, 95, 0.1);
+    --term-bg: #141110;
+    color-scheme: dark;
   }
 }
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+/* Root size sets the overall scale: rem-based type and spacing follow it. */
+html { scroll-behavior: smooth; font-size: 15px; }
 
 body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 17px;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
+/* A soft warm glow, like light on paper. Pinned to the viewport so it stays
+   with the reader while scrolling (a fixed layer, not background-attachment:
+   fixed, which is janky on mobile). Sections with their own background sit above it. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(1100px 620px at 88% -8%, var(--glow), transparent 62%),
+    radial-gradient(900px 560px at -12% 38%, var(--second-soft), transparent 60%);
+}
+
+::selection { background: var(--accent-soft); color: var(--ink); }
+
 a { color: inherit; }
 
-h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.1; margin: 0; }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: -100px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 500;
+  text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
+
+main { scroll-margin-top: 64px; }
+
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-variation-settings: "SOFT" 60;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+  margin: 0;
+}
 
 .container {
   max-width: var(--max);
@@ -60,34 +118,36 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.1; margin: 0; }
 }
 
 .section {
-  padding: clamp(72px, 10vw, 128px) 0;
+  padding: clamp(60px, 8.5vw, 108px) 0;
   scroll-margin-top: 64px;
 }
 
-.section-head { max-width: 640px; margin-bottom: 48px; }
-.section-head h2 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 600; }
-.section-head p { color: var(--muted); font-size: 1.1rem; margin: 16px 0 0; }
+.section-head { max-width: 640px; margin-bottom: 40px; }
+.section-head h2 { font-size: clamp(1.9rem, 4.2vw, 2.7rem); }
+.section-head p { color: var(--muted); font-size: 1.05rem; margin: 14px 0 0; }
 
+/* Handwritten-feeling section labels instead of terminal ones */
 .eyebrow {
   display: inline-block;
-  font-family: var(--mono);
-  font-size: 0.8rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.05rem;
   color: var(--accent);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 20px;
-  border-radius: var(--radius);
+  padding: 11px 20px;
+  border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--surface);
   font-weight: 500;
   font-size: 0.95rem;
   text-decoration: none;
-  transition: border-color 0.15s, transform 0.15s, background 0.15s;
+  transition: border-color 0.15s, transform 0.15s, background 0.15s, color 0.15s;
 }
 .btn:hover { border-color: var(--ink); transform: translateY(-1px); }
 .btn-primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
@@ -101,19 +161,20 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.1; margin: 0; }
 .arrow-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 .tag {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  padding: 3px 8px;
-  border-radius: 4px;
-  background: var(--surface-2);
-  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--second-soft);
+  color: var(--ink);
 }
 
-/* Scroll reveal (see components/Reveal.tsx) */
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal.is-visible { opacity: 1; transform: none; }
+/* Scroll reveal (see components/Reveal.tsx). Scoped to .js (set in layout.tsx)
+   so the page stays fully visible if JavaScript doesn't run. */
+.js .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.js .reveal.is-visible { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal { opacity: 1; transform: none; transition: none; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
 }

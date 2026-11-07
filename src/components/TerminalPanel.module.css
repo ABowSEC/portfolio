@@ -39,8 +39,8 @@
   flex: 1;
 }
 
-.dim { color: rgba(207, 233, 221, 0.5); }
-.alert { color: #f2c14e; }
+.dim { color: rgba(237, 227, 214, 0.55); }
+.alert { color: #f0b45c; }
 
 .caret { animation: blink 1.1s steps(1) infinite; }
 
