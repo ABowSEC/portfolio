@@ -1,0 +1,54 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(96px, 16vw, 180px) 0 clamp(80px, 12vw, 140px);
+  border-bottom: 1px solid var(--line);
+}
+
+.inner { position: relative; }
+
+.title {
+  font-size: clamp(2.6rem, 7.5vw, 5rem);
+  font-weight: 600;
+  max-width: 14ch;
+}
+
+.lede {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  color: var(--muted);
+  max-width: 520px;
+  margin: 24px 0 36px;
+}
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Orbit lines behind the hero, a nod to Ephemeris */
+.orbits {
+  position: absolute;
+  width: min(760px, 120vw);
+  right: -180px;
+  top: 50%;
+  transform: translateY(-50%);
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1;
+  pointer-events: none;
+}
+
+.body { fill: var(--accent); stroke: none; }
+
+.spin, .spinSlow { transform-origin: 300px 300px; }
+.spin { animation: orbit 40s linear infinite; }
+.spinSlow { animation: orbit 90s linear infinite reverse; }
+
+@keyframes orbit {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 720px) {
+  .orbits { right: -320px; opacity: 0.6; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin, .spinSlow { animation: none; }
+}

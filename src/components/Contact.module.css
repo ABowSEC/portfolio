@@ -1,0 +1,40 @@
+/* Always a dark panel, in both themes */
+.box {
+  --panel: #16181a;
+  --panel-ink: #f6f5f2;
+  --accent: #4fd1a0;
+  --on-accent: #0b1a14;
+  background: var(--panel);
+  color: var(--panel-ink);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: calc(var(--radius) * 2);
+  padding: clamp(40px, 8vw, 96px) clamp(24px, 6vw, 80px);
+  text-align: center;
+}
+
+.box :global(.eyebrow) { color: var(--accent); }
+
+.title {
+  font-size: clamp(2rem, 5.5vw, 3.5rem);
+  font-weight: 600;
+  max-width: 16ch;
+  margin: 0 auto;
+}
+
+.lede {
+  font-size: 1.1rem;
+  opacity: 0.7;
+  margin: 20px auto 36px;
+  max-width: 460px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.actions :global(.btn) { background: var(--panel-ink); color: var(--panel); border-color: var(--panel-ink); }
+.actions :global(.btn-primary) { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.actions :global(.btn):hover { border-color: var(--accent); }
