@@ -1,9 +1,11 @@
 import { projects } from "@/data/projects";
+import { getActivitySnapshot } from "@/lib/activity-snapshot";
 import ProjectCard from "./ProjectCard";
 import Reveal from "./Reveal";
 import styles from "./Work.module.css";
 
-export default function Work() {
+export default async function Work() {
+  const snapshot = await getActivitySnapshot();
   const featured = projects.filter((p) => p.status !== "wip");
   const inProgress = projects.filter((p) => p.status === "wip");
 
@@ -21,7 +23,7 @@ export default function Work() {
         <div className={styles.featured}>
           {featured.map((p) => (
             <Reveal key={p.slug}>
-              <ProjectCard project={p} />
+              <ProjectCard project={p} activity={snapshot} />
             </Reveal>
           ))}
         </div>
@@ -34,7 +36,7 @@ export default function Work() {
         <div className={styles.grid}>
           {inProgress.map((p, i) => (
             <Reveal key={p.slug} delay={i * 80}>
-              <ProjectCard project={p} />
+              <ProjectCard project={p} activity={snapshot} />
             </Reveal>
           ))}
         </div>

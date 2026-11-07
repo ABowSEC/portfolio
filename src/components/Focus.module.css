@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 28px;
+  padding: 24px;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -16,7 +16,7 @@
   transition: border-color 0.15s, transform 0.15s;
 }
 
-.card:hover { border-color: var(--ink); transform: translateY(-3px); }
+.card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 30px -18px var(--accent); }
 
 .label {
   font-family: var(--mono);
@@ -25,10 +25,20 @@
   margin-bottom: 40px;
 }
 
-.card h3 { font-size: 1.35rem; font-weight: 600; }
+.card h3 { font-size: 1.3rem; font-weight: 500; }
 
 .card p {
   color: var(--muted);
   margin: 12px 0 24px;
   flex: 1;
+}
+
+.accent { font-style: italic; font-weight: 400; color: var(--accent); }
+
+/* Four cards: 2×2 on mid-size screens instead of 3 + 1 orphan */
+@media (min-width: 1000px) {
+  .grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (min-width: 600px) and (max-width: 999px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
 }

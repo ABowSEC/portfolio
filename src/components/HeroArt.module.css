@@ -1,0 +1,97 @@
+/* ---- Constellation: the system map behind the hero ---- */
+.constellation {
+  position: absolute;
+  width: min(660px, 110vw);
+  right: -150px;
+  top: 50%;
+  transform: translateY(-50%);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.ring {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1;
+  stroke-dasharray: 2 6;
+}
+
+.orbit { transform-origin: 300px 300px; animation: orbit 120s linear infinite; }
+.body { fill: var(--accent); opacity: 0.55; }
+
+@keyframes orbit {
+  to { transform: rotate(360deg); }
+}
+
+.wire {
+  fill: none;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  opacity: 0.45;
+  transition: opacity 0.2s, stroke-width 0.2s;
+}
+.work { stroke: var(--accent); }
+.project { stroke: var(--second); }
+
+.packetWork { fill: var(--accent); }
+.packetProject { fill: var(--second); }
+
+.node { pointer-events: auto; cursor: pointer; }
+.halo { fill: var(--bg); stroke: var(--line); stroke-width: 1; }
+.dot { transition: transform 0.2s; }
+.dot.me { fill: var(--accent); }
+.dot.work { fill: var(--accent); }
+.dot.project { fill: var(--second); }
+
+.label {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 500;
+  fill: var(--muted);
+  transition: fill 0.2s;
+}
+.node:hover .label { fill: var(--ink); }
+.node:hover .halo { stroke: var(--accent); }
+
+/* ---- Pulse to packet: the hero's bottom edge ---- */
+.ecg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  max-height: 80px;
+  pointer-events: none;
+}
+
+.trace {
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 2.4s cubic-bezier(0.45, 0, 0.25, 1) 0.2s forwards;
+}
+.beat { stroke: var(--accent); opacity: 0.7; }
+.data { stroke: var(--second); opacity: 0.8; animation-delay: 1.4s; animation-duration: 1.6s; }
+
+.blip { fill: var(--accent); }
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ---- Small screens: art is mostly off to the side, keep it quiet ---- */
+@media (max-width: 720px) {
+  .constellation { right: -320px; opacity: 0.35; }
+  .label, .constellation .packets { display: none; }
+}
+
+/* ---- Reduced motion: no travelling packets, line already drawn ---- */
+@media (prefers-reduced-motion: reduce) {
+  .packets { display: none; }
+  .orbit { animation: none; }
+  .trace { animation: none; stroke-dashoffset: 0; }
+  .wire, .dot, .label { transition: none; }
+}

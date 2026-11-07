@@ -1,0 +1,118 @@
+/* Only on screens wide enough to have a free left margin. */
+.rail {
+  --hop: 34px;
+  --dot-x: 27px; /* centre of the dot column: num (18px) + half of dot column (18px) */
+  display: none;
+  position: fixed;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  padding: 6px 10px 6px 0;
+  border-radius: var(--radius);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  transition: background 0.2s;
+}
+
+@media (min-width: 1280px) {
+  .rail { display: block; }
+}
+
+.track { position: relative; }
+
+.list {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* The full route (dashed) and the part already travelled (solid). */
+.list::before,
+.travelled {
+  content: "";
+  position: absolute;
+  left: var(--dot-x);
+  top: calc(var(--hop) / 2);
+  width: 0;
+  pointer-events: none;
+}
+.list::before {
+  bottom: calc(var(--hop) / 2);
+  border-left: 1px dashed var(--line);
+}
+.travelled {
+  height: calc(var(--p) * var(--hop));
+  border-left: 1px solid var(--accent);
+}
+
+.packet {
+  position: absolute;
+  z-index: 2;
+  left: calc(var(--dot-x) - 4px);
+  top: calc(var(--p) * var(--hop) + var(--hop) / 2 - 4px);
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+  pointer-events: none;
+  transition: top 0.12s linear;
+}
+
+.list a {
+  display: grid;
+  grid-template-columns: 18px 18px auto;
+  align-items: center;
+  height: var(--hop);
+  text-decoration: none;
+  color: inherit;
+}
+
+.num { text-align: right; padding-right: 2px; opacity: 0.7; }
+
+.dot {
+  justify-self: center;
+  position: relative;
+  z-index: 1;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--muted);
+}
+.reached .dot { background: var(--muted); }
+.current .dot { background: var(--accent); border-color: var(--accent); }
+.current a { color: var(--ink); }
+
+.label {
+  display: flex;
+  gap: 10px;
+  padding-left: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.time { opacity: 0.6; }
+
+/* Labels: shown on hover/focus, or always on very wide screens. */
+.rail:hover,
+.rail:focus-within { background: color-mix(in srgb, var(--bg) 92%, transparent); }
+.rail:hover .label,
+.rail:focus-within .label { opacity: 1; }
+.list a:hover { color: var(--ink); }
+
+@media (min-width: 1520px) {
+  .label { opacity: 1; }
+  .rail:hover, .rail:focus-within { background: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .packet, .label, .rail { transition: none; }
+}
+
+@media print {
+  .rail { display: none !important; }
+}

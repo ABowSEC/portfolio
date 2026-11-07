@@ -1,0 +1,34 @@
+.greeting {
+  min-height: 1.7em;
+  margin: 32px 0 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.greeting p { margin: 0; }
+
+.dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: var(--second);
+  vertical-align: 1px;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--second-soft); }
+  50% { box-shadow: 0 0 0 5px var(--second-soft); }
+}
+
+.aside { opacity: 0.75; }
+
+.second { padding-left: 17px; color: var(--ink); }
+.second a { color: var(--accent); text-underline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dot { animation: none; }
+}

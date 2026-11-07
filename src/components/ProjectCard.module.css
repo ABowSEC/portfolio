@@ -8,7 +8,7 @@
   transition: border-color 0.15s, transform 0.15s;
 }
 
-.card:hover { border-color: var(--ink); transform: translateY(-3px); }
+.card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 16px 40px -28px var(--ink); }
 
 .large {
   display: grid;
@@ -22,21 +22,88 @@
   display: flex;
 }
 
+/* The mat: warm paper with a sage and terracotta glow, window bleeding off the corner. */
+.stage {
+  --ring: rgba(43, 37, 34, 0.14);
+  --drop: rgba(43, 37, 34, 0.45);
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: clamp(20px, 3.4vw, 38px) 0 0 clamp(20px, 3.4vw, 38px);
+  background:
+    radial-gradient(380px 260px at 0% 0%, var(--second-soft), transparent 70%),
+    radial-gradient(520px 360px at 100% 100%, var(--glow), transparent 70%),
+    var(--surface-2);
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .stage { --ring: rgba(255, 255, 255, 0.1); --drop: rgba(0, 0, 0, 0.7); }
+}
+
+.window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 128%;
+  border-radius: 12px 0 0 0;
+  overflow: hidden;
+  background: #0b0b0d;
+  box-shadow: 0 0 0 1px var(--ring), 0 34px 60px -28px var(--drop);
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* The NetSleuth terminal has its own title bar and is narrower content. */
+.windowTerm { width: 112%; }
+.windowTerm > * { flex: 1; }
+
+.stage:hover .window,
+.stage:focus-visible .window { transform: translate(-8px, -8px); }
+
+.chrome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 14px;
+  background: #17181c;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.chrome > span:not(.url) { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); }
+.url {
+  margin-left: 14px;
+  padding: 2px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.62);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+}
+
 .shot {
+  display: block;
+  flex: 1;
   width: 100%;
   height: 100%;
+  min-height: 0;
   object-fit: cover;
   object-position: top left;
-  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .window { transition: none; }
+  .stage:hover .window, .stage:focus-visible .window { transform: none; }
 }
 
 .body {
-  padding: 28px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
 }
 
-.large .body { padding: 36px; justify-content: center; }
+.large .body { padding: 30px; justify-content: center; }
 
 .meta {
   display: flex;
@@ -47,21 +114,38 @@
 }
 
 .live {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--second);
 }
 
 .course {
-  font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   color: var(--muted);
 }
 
-.card h3 { font-size: 1.5rem; font-weight: 600; }
-.large h3 { font-size: clamp(1.75rem, 3vw, 2.25rem); }
+.card h3 { font-size: 1.4rem; font-weight: 500; }
+.large h3 { font-size: clamp(1.6rem, 2.6vw, 2rem); }
 
-.card p { color: var(--muted); margin: 12px 0 20px; }
+.card p { color: var(--muted); margin: 12px 0 20px; max-width: 68ch; }
+
+.card .highlight {
+  margin: -4px 0 20px;
+  padding-left: 12px;
+  border-left: 3px solid var(--accent-soft);
+  border-left-color: var(--accent);
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+
+.highlightLabel {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
 
 .stack {
   list-style: none;
@@ -70,17 +154,24 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px 14px;
-  font-family: var(--mono);
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   color: var(--muted);
 }
 
-.stack li::before { content: "/ "; color: var(--accent); }
+.stack li::before { content: "·"; color: var(--accent); font-weight: 700; margin-right: 6px; }
 
 .links { display: flex; gap: 20px; }
 
 @media (max-width: 860px) {
   .large { grid-template-columns: 1fr; }
   .media { border-right: none; border-bottom: 1px solid var(--line); min-height: 0; }
-  .large .body { padding: 28px; }
+  .large .body { padding: 24px; }
 }
+
+.updated {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+.updated:hover { color: var(--accent); }
