@@ -1,6 +1,7 @@
 import { me } from "@/data/me";
 import { getActivitySnapshot } from "@/lib/activity-snapshot";
 import ActivityFeed from "./ActivityFeed";
+import CollapsibleSection from "./CollapsibleSection";
 import Reveal from "./Reveal";
 import styles from "./Now.module.css";
 
@@ -14,16 +15,12 @@ export default async function Now() {
   });
 
   return (
-    <section id="now" className="section">
-      <div className="container">
-        <Reveal>
-          <div className="section-head">
-            <span className="eyebrow">Now</span>
-            <h2>What has my attention.</h2>
-            <p>What I&apos;m working on at the moment, and the commits that back it up.</p>
-          </div>
-        </Reveal>
-
+    <CollapsibleSection
+      id="now"
+      eyebrow="Now"
+      title="What has my attention."
+      summary="What I'm working on at the moment, and the commits that back it up."
+    >
         <div className={styles.grid}>
           {items.length > 0 && (
             <Reveal>
@@ -52,7 +49,6 @@ export default async function Now() {
             </div>
           </Reveal>
         </div>
-      </div>
-    </section>
+    </CollapsibleSection>
   );
 }

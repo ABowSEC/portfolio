@@ -1,20 +1,12 @@
 import { faq } from "@/data/faq";
+import CollapsibleSection from "./CollapsibleSection";
 import Reveal from "./Reveal";
 import styles from "./Faq.module.css";
 
 export default function Faq() {
   return (
-    <section id="faq" className="section">
-      <div className={`container ${styles.grid}`}>
-        <Reveal>
-          <div className="section-head">
-            <span className="eyebrow">FAQ</span>
-            <h2>Quick answers.</h2>
-            <p>The things people usually ask first.</p>
-          </div>
-        </Reveal>
-
-        <Reveal delay={80}>
+    <CollapsibleSection id="faq" eyebrow="FAQ" title="Quick answers." summary="The things people usually ask first.">
+      <Reveal>
           <div className={styles.list}>
             {faq.map((item) => (
               <details key={item.q} className={styles.item}>
@@ -23,8 +15,7 @@ export default function Faq() {
               </details>
             ))}
           </div>
-        </Reveal>
-      </div>
-    </section>
+      </Reveal>
+    </CollapsibleSection>
   );
 }

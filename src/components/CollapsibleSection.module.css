@@ -1,0 +1,78 @@
+.section { border-top: 1px solid var(--line); }
+
+.head {
+  position: relative;
+  max-width: none;
+}
+.head p { max-width: 640px; }
+
+.toggle {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* The whole head (eyebrow, title, summary) is the click target. */
+.toggle::after {
+  content: "";
+  position: absolute;
+  inset: -12px -12px;
+}
+
+.toggle:focus-visible { outline: none; }
+.toggle:focus-visible .icon { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* A round plus that turns into a minus */
+.icon {
+  position: relative;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transition: background 0.2s, border-color 0.2s, transform 0.25s;
+}
+.icon::before,
+.icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  margin: -1px 0 0 -7px;
+  border-radius: 2px;
+  background: var(--accent);
+  transition: transform 0.25s;
+}
+.icon::after { transform: rotate(90deg); }
+.head:hover .icon { border-color: var(--accent); background: var(--accent-soft); }
+
+.section[data-collapsed="false"] .icon::after { transform: rotate(0deg); }
+
+/* Collapsed sections become a compact list. Scoped to .js so the page is
+   fully open without JavaScript. Before hydration, hide closed content to
+   avoid a flash; after, `hidden="until-found"` takes over (findable by Ctrl+F). */
+:global(.js) .section[data-collapsed="true"] {
+  padding-block: clamp(30px, 4vw, 46px);
+}
+:global(.js) .section[data-collapsed="true"] .head { margin-bottom: 0; }
+:global(.js:not([data-hydrated])) .section[data-collapsed="true"] .body { display: none; }
+
+/* No JS: nothing to toggle, so hide the control. */
+:global(html:not(.js)) .icon { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .icon, .icon::before, .icon::after { transition: none; }
+}
+
+@media print {
+  .body[hidden] { display: block !important; content-visibility: visible !important; }
+  .icon { display: none; }
+}

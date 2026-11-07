@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { LAYOUT_EVENT } from "./sections";
 
 export type SectionTrace = {
   /** Index of the section under the reading line, or -1 above the first one. */
@@ -68,10 +69,12 @@ export function useSectionProgress(ids: readonly string[], trackPosition = false
     schedule();
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
+    window.addEventListener(LAYOUT_EVENT, schedule);
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
+      window.removeEventListener(LAYOUT_EVENT, schedule);
     };
   }, [ids, trackPosition]);
 

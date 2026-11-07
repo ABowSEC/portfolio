@@ -5,6 +5,7 @@ import { projects } from "@/data/projects";
 import { me } from "@/data/me";
 import { site } from "@/data/site";
 import { TERMINAL_EVENT } from "@/lib/terminal";
+import { expandById } from "@/lib/sections";
 import styles from "./Terminal.module.css";
 
 type Line = { text: string; tone?: "in" | "dim" | "err" | "ok" | "accent"; href?: string };
@@ -114,6 +115,7 @@ export default function Terminal() {
   const goTo = (id: string, delay = 0) => {
     setTimeout(() => {
       close();
+      expandById(id);
       requestAnimationFrame(() =>
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })
       );
