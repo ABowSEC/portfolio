@@ -49,15 +49,17 @@ src/data/        site info, projects, FAQ
 public/img/      screenshots
 ```
 
-## Hosting (Cloudflare Pages)
+## Hosting (Cloudflare Workers, static assets)
 
-The site is a static export (`output: "export"` in `next.config.ts`), so `npm run build` writes everything to `out/`.
+Live at https://portfolio.abowsec.workers.dev.
 
-1. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git** → choose this repo.
-2. Build settings: preset **Next.js (Static HTML Export)**, build command `npm run build`, output directory `out`. Leave the root directory blank.
-3. Environment variables:
+The site is a static export (`output: "export"` in `next.config.ts`), so `npm run build` writes everything to `out/`. `wrangler.jsonc` tells Cloudflare to serve that folder as-is. The Worker's name must match `"name"` in that file.
+
+1. Cloudflare dashboard → **Workers & Pages → Create application → Import a repository** → connect GitHub and choose this repo. Don't paste a URL; that flow copies the repo.
+2. Worker name `portfolio`, build command `npm run build`, deploy command `npx wrangler deploy`, root directory blank.
+3. Variables:
    - `NODE_VERSION` = `22`
-   - `GITHUB_TOKEN` = a fine-grained token with public-repo read access. It keeps the build-time commit feed from hitting GitHub's shared-IP rate limit.
+   - `GITHUB_TOKEN` (secret) = a fine-grained token with public-repo read access. It keeps the build-time commit feed from hitting GitHub's shared-IP rate limit.
 4. Every push to `main` redeploys.
 
 The deployed address lives in one place: `url` in `src/data/site.ts`. It feeds link previews (Open Graph and Twitter), the canonical URL, `sitemap.xml` and `robots.txt`. When you add a custom domain, change that line and push.
